@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Patch, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Patch, Delete, Param, ParseIntPipe, Body } from '@nestjs/common';
 
 @Controller('/users')
 export class UsersController {
@@ -13,17 +13,17 @@ export class UsersController {
   }
 
   @Post()
-  create(): string {
-    return 'User have been added';
+  create(@Body() body) {
+    return body;
   }
 
-  @Patch()
-  update(): string {
+  @Patch(':id')
+  update(@Param('id', ParseIntPipe)id: number): string {
     return 'User have been updated';
   }
 
-  @Delete()
-  delete(): string {
+  @Delete(':id')
+  delete(@Param('id', ParseIntPipe)id: number): string {
     return 'User have been deleted';
   }
 }
