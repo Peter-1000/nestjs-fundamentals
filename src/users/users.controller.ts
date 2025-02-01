@@ -8,18 +8,20 @@ import {
   Param,
   ParseUUIDPipe,
   Patch,
-  Post,
+  Post, Query,
 } from '@nestjs/common';
 import { randomUUID } from 'crypto';
 import { CreateUserDto } from './create-user.dto';
 import { UpdateUserDto } from './update-user.dto';
+import { UserPipe } from './pipes/user.pipe';
 
 @Controller('/users')
 export class UsersController {
   private users: any[] = [];
 
   @Get()
-  get() {
+  get(@Query("username", UserPipe) username: string) {
+    console.log(username);
     return this.users;
   }
 
