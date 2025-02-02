@@ -16,8 +16,7 @@ import { UsersService } from './user.service';
 
 @Controller('/users')
 export class UsersController {
-  constructor(private readonly UsersService: UsersService) {
-  }
+  constructor(private readonly UsersService: UsersService) {}
 
   @Get()
   get() {
@@ -25,7 +24,7 @@ export class UsersController {
   }
 
   @Get(':id')
-  find(@Param('id', ParseUUIDPipe)id) {
+  find(@Param('id', ParseUUIDPipe) id) {
     return this.UsersService.getUserById(id);
   }
 
@@ -35,13 +34,16 @@ export class UsersController {
   }
 
   @Patch(':id')
-  update(@Param('id', ParseUUIDPipe)id: string, @Body()updateUserDto: UpdateUserDto) {
+  update(
+    @Param('id', ParseUUIDPipe) id: string,
+    @Body() updateUserDto: UpdateUserDto,
+  ) {
     return this.UsersService.updateUser(id, updateUserDto);
   }
 
   @Delete(':id')
   @HttpCode(HttpStatus.NO_CONTENT)
-  delete(@Param('id', ParseUUIDPipe)id): void {
+  delete(@Param('id', ParseUUIDPipe) id): void {
     this.UsersService.deleteUser(id);
   }
 }

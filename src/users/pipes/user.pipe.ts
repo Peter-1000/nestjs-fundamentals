@@ -5,5 +5,4 @@ export class UserPipe implements PipeTransform {
   transform(value: any, metadata: ArgumentMetadata): any {
     return `Dev: ${value}`;
   }
-
 }
