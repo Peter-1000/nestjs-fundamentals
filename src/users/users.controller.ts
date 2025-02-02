@@ -5,6 +5,7 @@ import {
   Get,
   HttpCode,
   HttpStatus,
+  Inject,
   Param,
   ParseUUIDPipe,
   Patch,
@@ -16,21 +17,25 @@ import { UsersService } from './user.service';
 
 @Controller('/users')
 export class UsersController {
-  constructor(private readonly UsersService: UsersService) {}
+  constructor(
+    private readonly usersService: UsersService,
+    @Inject('APP_NAME') private readonly appName: string,
+  ) {}
 
   @Get()
   get() {
-    return this.UsersService.getAllUsers();
+    console.log(this.appName);
+    return this.usersService.getAllUsers();
   }
 
   @Get(':id')
   find(@Param('id', ParseUUIDPipe) id) {
-    return this.UsersService.getUserById(id);
+    return this.usersService.getUserById(id);
   }
 
   @Post()
   create(@Body() createUserDto: CreateUserDto) {
-    return this.UsersService.createUser(createUserDto);
+    return this.usersService.createUser(createUserDto);
   }
 
   @Patch(':id')
@@ -38,12 +43,12 @@ export class UsersController {
     @Param('id', ParseUUIDPipe) id: string,
     @Body() updateUserDto: UpdateUserDto,
   ) {
-    return this.UsersService.updateUser(id, updateUserDto);
+    return this.usersService.updateUser(id, updateUserDto);
   }
 
   @Delete(':id')
   @HttpCode(HttpStatus.NO_CONTENT)
   delete(@Param('id', ParseUUIDPipe) id): void {
-    this.UsersService.deleteUser(id);
+    this.usersService.deleteUser(id);
   }
 }
