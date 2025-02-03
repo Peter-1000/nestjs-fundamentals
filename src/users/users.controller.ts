@@ -14,12 +14,13 @@ import {
 import { CreateUserDto } from './dtos/create-user.dto';
 import { UpdateUserDto } from './dtos/update-user.dto';
 import { UsersService } from './user.service';
+import { APP_NAME } from './user.constants';
 
 @Controller('/users')
 export class UsersController {
   constructor(
     private readonly usersService: UsersService,
-    @Inject('APP_NAME') private readonly appName: string,
+    @Inject(APP_NAME) private readonly appName: string,
   ) {}
 
   @Get()
