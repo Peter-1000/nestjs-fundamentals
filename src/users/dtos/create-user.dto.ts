@@ -8,6 +8,10 @@ export class CreateUserDto {
   @IsEmail({}, { message: 'Invalid email' })
   readonly email: string;
 
+  @IsString()
+  @Length(3, 20)
+  readonly password: string;
+
   @IsInt()
   readonly age: number;
 }
