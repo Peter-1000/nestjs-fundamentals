@@ -13,8 +13,12 @@ export class UsersService {
     return this.users;
   }
 
-  getUserById(id: string): User | undefined {
-    return this.users.find((user) => user.id === id);
+  getUserById(id: string): UserResponseDto {
+    const user: User | undefined = this.users.find((user) => user.id === id);
+    if (!user) {
+      throw new Error(`User with id ${id} not found`);
+    }
+    return new UserResponseDto(user);
   }
 
   createUser(createUserDto: CreateUserDto): UserResponseDto {
@@ -23,10 +27,10 @@ export class UsersService {
     return new UserResponseDto(newUser);
   }
 
-  updateUser(id: string, updateUserDto: UpdateUserDto): User {
+  updateUser(id: string, updateUserDto: UpdateUserDto): UserResponseDto {
     const index = this.users.findIndex((user) => user.id === id);
     this.users[index] = { ...this.users[index], ...updateUserDto };
-    return this.users[index];
+    return new UserResponseDto(this.users[index]);
   }
 
   deleteUser(id: string): void {

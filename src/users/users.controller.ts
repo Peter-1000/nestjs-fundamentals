@@ -31,7 +31,7 @@ export class UsersController {
   }
 
   @Get(':id')
-  find(@Param('id', ParseUUIDPipe) id) {
+  find(@Param('id', ParseUUIDPipe) id): UserResponseDto {
     return this.usersService.getUserById(id);
   }
 
@@ -44,7 +44,7 @@ export class UsersController {
   update(
     @Param('id', ParseUUIDPipe) id: string,
     @Body() updateUserDto: UpdateUserDto,
-  ) {
+  ): UserResponseDto {
     return this.usersService.updateUser(id, updateUserDto);
   }
 
