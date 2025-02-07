@@ -7,5 +7,9 @@ export class UserResponseDto {
   age: number;
 
   @Exclude()
-  password: number;
+  password: string;
+
+  constructor(partial: Partial<UserResponseDto>) {
+    Object.assign(this, partial);
+  }
 }

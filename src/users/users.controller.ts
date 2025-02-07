@@ -15,6 +15,7 @@ import { CreateUserDto } from './dtos/create-user.dto';
 import { UpdateUserDto } from './dtos/update-user.dto';
 import { UsersService } from './user.service';
 import { APP_NAME } from './user.constants';
+import { UserResponseDto } from './dtos/user-response.dto';
 
 @Controller('/users')
 export class UsersController {
@@ -35,7 +36,7 @@ export class UsersController {
   }
 
   @Post()
-  create(@Body() createUserDto: CreateUserDto) {
+  create(@Body() createUserDto: CreateUserDto): UserResponseDto {
     return this.usersService.createUser(createUserDto);
   }
 

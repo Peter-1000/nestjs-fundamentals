@@ -3,6 +3,7 @@ import { User } from './user';
 import { UpdateUserDto } from './dtos/update-user.dto';
 import { CreateUserDto } from './dtos/create-user.dto';
 import { randomUUID } from 'crypto';
+import { UserResponseDto } from './dtos/user-response.dto';
 
 @Injectable()
 export class UsersService {
@@ -16,10 +17,10 @@ export class UsersService {
     return this.users.find((user) => user.id === id);
   }
 
-  createUser(createUserDto: CreateUserDto): User {
-    const user: User = { ...createUserDto, id: randomUUID() };
-    this.users.push(user);
-    return user;
+  createUser(createUserDto: CreateUserDto): UserResponseDto {
+    const newUser: User = { ...createUserDto, id: randomUUID() };
+    this.users.push(newUser);
+    return new UserResponseDto(newUser);
   }
 
   updateUser(id: string, updateUserDto: UpdateUserDto): User {
