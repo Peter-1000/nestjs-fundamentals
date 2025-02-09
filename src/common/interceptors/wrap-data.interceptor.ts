@@ -4,8 +4,6 @@ import {
   Injectable,
   NestInterceptor,
 } from '@nestjs/common';
-import { ExecutionContextHost } from '@nestjs/core/helpers/execution-context-host';
-import { stat } from 'fs';
 import { map, Observable } from 'rxjs';
 
 @Injectable()
@@ -14,8 +12,8 @@ export class WrapDataInterceptor implements NestInterceptor {
     // Logic of intercept request
     return next.handle().pipe(
       map((data) => {
-        const req = context.switchToHttp().getResponse();
         // Logic of intercept response
+        const req = context.switchToHttp().getResponse();
         return { statusCode: req.statusCode, data: data };
       }),
     );

@@ -16,6 +16,7 @@ import { UpdateUserDto } from './dtos/update-user.dto';
 import { UsersService } from './user.service';
 import { APP_NAME } from './user.constants';
 import { UserResponseDto } from './dtos/user-response.dto';
+import { User } from './user';
 
 @Controller('/users')
 export class UsersController {
@@ -25,8 +26,7 @@ export class UsersController {
   ) {}
 
   @Get()
-  get() {
-    console.log(this.appName);
+  get(): User[] {
     return this.usersService.getAllUsers();
   }
 
