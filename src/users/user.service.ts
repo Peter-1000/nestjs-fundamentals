@@ -1,9 +1,10 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { User } from './user';
 import { UpdateUserDto } from './dtos/update-user.dto';
 import { CreateUserDto } from './dtos/create-user.dto';
 import { randomUUID } from 'crypto';
 import { UserResponseDto } from './dtos/user-response.dto';
+import { CustomException } from 'src/common/exceptions/custom-exception';
 
 @Injectable()
 export class UsersService {
@@ -16,7 +17,7 @@ export class UsersService {
   getUserById(id: string): UserResponseDto {
     const user: User | undefined = this.users.find((user) => user.id === id);
     if (!user) {
-      throw new Error(`User with id ${id} not found`);
+      throw new NotFoundException(`User with id ${id} not found`);
     }
     return new UserResponseDto(user);
   }
@@ -29,6 +30,9 @@ export class UsersService {
 
   updateUser(id: string, updateUserDto: UpdateUserDto): UserResponseDto {
     const index = this.users.findIndex((user) => user.id === id);
+    if (index === -1) {
+      throw new CustomException(`User with id ${id} not found`);
+    }    
     this.users[index] = { ...this.users[index], ...updateUserDto };
     return new UserResponseDto(this.users[index]);
   }
