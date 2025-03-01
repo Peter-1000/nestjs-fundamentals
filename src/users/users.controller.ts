@@ -18,6 +18,7 @@ import { UsersService } from './user.service';
 import { APP_NAME } from './user.constants';
 import { UserResponseDto } from './dtos/user-response.dto';
 import { User } from './user';
+import { Public } from '../common/decorators/public.decorator';
 
 @Controller('/users')
 export class UsersController {
@@ -26,12 +27,14 @@ export class UsersController {
     @Inject(APP_NAME) private readonly appName: string,
   ) {}
 
-  @SetMetadata('IS_PUBLIC', true)
+  // @SetMetadata('IS_PUBLIC', true)
+  @Public()
   @Get()
   get(): User[] {
     return this.usersService.getAllUsers();
   }
 
+  @Public()
   @Get(':id')
   find(@Param('id', ParseUUIDPipe) id): UserResponseDto {
     return this.usersService.getUserById(id);

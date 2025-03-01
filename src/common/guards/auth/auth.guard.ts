@@ -7,6 +7,7 @@ import {
 import { Reflector } from '@nestjs/core';
 import { Request } from 'express';
 import { Observable } from 'rxjs';
+import { IS_PUBLIC_KEY } from '../../decorators/public.decorator';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
@@ -21,7 +22,7 @@ export class AuthGuard implements CanActivate {
     const request = ctx.getRequest<Request>();
     const token = request.header('Authorization')?.split(' ')[1];
     const isPublic = this.reflector.get<boolean>(
-      'IS_PUBLIC',
+      IS_PUBLIC_KEY,
       context.getHandler(),
     );
 
