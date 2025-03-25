@@ -9,9 +9,13 @@ import { UserModule } from './users/users.module';
 import { APP_INTERCEPTOR } from '@nestjs/core';
 import { CommonModule } from './common/common.module';
 import { LoggerMiddleware } from './common/middleware/logger/logger.middleware';
+import { ConfigModule } from '@nestjs/config';
+import * as process from 'node:process';
 
 @Module({
-  imports: [UserModule, CommonModule],
+  imports: [ConfigModule.forRoot({
+    envFilePath: process.env.NODE_ENV === 'development' ? '.env' : '.staging.env',
+  }), UserModule, CommonModule],
   providers: [
     {
       provide: APP_INTERCEPTOR,
