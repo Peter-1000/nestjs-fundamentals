@@ -19,13 +19,18 @@ import { APP_NAME } from './user.constants';
 import { UserResponseDto } from './dtos/user-response.dto';
 import { User } from './user';
 import { Public } from '../common/decorators/public.decorator';
+import { ConfigService } from '@nestjs/config';
 
 @Controller('/users')
 export class UsersController {
   constructor(
+    private readonly configService: ConfigService,
     private readonly usersService: UsersService,
     @Inject(APP_NAME) private readonly appName: string,
-  ) {}
+  ) {
+    console.log(process.env.DB_HOST);
+    console.log(this.configService.get<string>('DB_HOST', 'root'));
+  }
 
   // @SetMetadata('IS_PUBLIC', true)
   @Public()
