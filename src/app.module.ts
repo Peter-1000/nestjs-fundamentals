@@ -20,6 +20,7 @@ import ormConfig from './config/orm.config';
       envFilePath:
         process.env.NODE_ENV === 'development' ? '.env' : '.staging.env',
       isGlobal: true,
+      expandVariables: true,
     }),
 
     // TypeOrmModule.forRootAsync({

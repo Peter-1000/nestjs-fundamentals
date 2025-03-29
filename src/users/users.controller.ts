@@ -28,8 +28,7 @@ export class UsersController {
     private readonly usersService: UsersService,
     @Inject(APP_NAME) private readonly appName: string,
   ) {
-    console.log(process.env.DB_HOST);
-    console.log(this.configService.get<string>('DB_HOST', 'root'));
+    console.log(this.configService.get<string>('ADMIN_EMAIL', 'root'));
   }
 
   // @SetMetadata('IS_PUBLIC', true)
