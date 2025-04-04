@@ -21,14 +21,19 @@ import { User } from './user';
 import { Public } from '../common/decorators/public.decorator';
 import { ConfigService } from '@nestjs/config';
 
+interface EnvironmentVariables {
+  PORT: number,
+  EMAIL: string,
+}
+
 @Controller('/users')
 export class UsersController {
   constructor(
-    private readonly configService: ConfigService,
+    private readonly configService: ConfigService<EnvironmentVariables>,
     private readonly usersService: UsersService,
     @Inject(APP_NAME) private readonly appName: string,
   ) {
-    console.log(this.configService.get<string>('ADMIN_EMAIL', 'root'));
+    console.log(this.configService.get('EMAIL', { infer: true }));
   }
 
   // @SetMetadata('IS_PUBLIC', true)
